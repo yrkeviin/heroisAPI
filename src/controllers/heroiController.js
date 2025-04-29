@@ -2,7 +2,8 @@ const heroiModel = require("../models/heroiModel");
 
 const getAllHerois = async (req, res) => {
     try {
-        const herois = await heroiModel.getHerois();
+        const {name} = req.query;
+        const herois = await heroiModel.getHerois(name);
         res.json(herois);
     } catch (error) {
         res.status(500).json({ message: "Erro ao buscar herois!" });
@@ -24,11 +25,12 @@ const getHeroi = async (req, res) => {
 const createHeroi = async (req, res) => {
     try {
         const { name, editora_id } = req.body;
-        const newHeroi = await heroiModel.createHeroi(name, editora_id);
+        const photo = req.file ? req.file.filename : null;
+        const newHeroi = await heroiModel.createHeroi(name, editora_id, photo);
         res.status(201).json(newHeroi);
     } catch (error) {
         res.status(500).json({ message: "Erro ao criar heroi!" });
-    }
+    }   
 };
 
 const updateHeroi = async (req, res) => {
