@@ -24,7 +24,7 @@ const getHeroi = async (req, res) => {
 
 const createHeroi = async (req, res) => {
     try {
-        const { name, editora_id } = req.body;
+        const { name, editora_id} = req.body;
         const photo = req.file ? req.file.filename : null;
         const newHeroi = await heroiModel.createHeroi(name, editora_id, photo);
         res.status(201).json(newHeroi);
