@@ -3,11 +3,13 @@ const express = require("express");
 const cors = require("cors");
 const heroiRoutes = require("./src/routes/heroiRoutes");
 const editoraRoutes = require("./src/routes/editoraRoutes");
+const reportRoutes = require("./src/routes/reportRoutes");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/doc", reportRoutes);
 app.use("/api/herois", heroiRoutes);
 app.use("/api/editoras", editoraRoutes);
 
