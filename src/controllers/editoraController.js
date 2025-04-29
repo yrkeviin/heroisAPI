@@ -32,14 +32,20 @@ const createEditora = async (req, res) => {
 
 const updateEditora = async (req, res) => {
     try {
-        const editoraAtualizada = await editoraModel.updateEditora(req.body.name);
-        if (!editoraAtualizada) {
-            return res.status(404).json({ message: "Editora não encontrada!" });
+        const { id } = req.params;
+        const { name, photo } = req.body;
+
+        // Atualiza a editora no banco de dados
+        const updatedEditora = await editoraModel.updateEditora(id, name, photo);
+
+        if (!updatedEditora) {
+            return res.status(404).json({ message: "Editora não encontrada." });
         }
-        res.json(editoraAtualizada);
+
+        res.json(updatedEditora);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Erro ao atualizar editora!" });
+        console.error("Erro ao atualizar editora:", error);
+        res.status(500).json({ message: "Erro ao atualizar editora." });
     }
 };
 
