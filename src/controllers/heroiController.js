@@ -31,4 +31,15 @@ const createHeroi = async (req, res) => {
     }
 };
 
-module.exports = { getAllHerois, getHeroi, createHeroi };
+const updateHeroi = async (req, res) => {
+    const { name, editora_id } = req.body;
+    const updatedHeroi = await heroiModel.updateHeroi(req.params.id, name, editora_id);
+    res.json(updatedHeroi);
+};
+
+const deleteHeroi = async (req, res) => {
+    const message = await heroiModel.deleteHeroi(req.params.id);
+    res.json(message);
+};
+
+module.exports = { getAllHerois, getHeroi, createHeroi, updateHeroi, deleteHeroi };
