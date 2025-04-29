@@ -7,11 +7,11 @@ const getAllHerois = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Erro ao buscar herois!" });
     }
-};
+}
 
 const getHeroi = async (req, res) => {
     try {
-        const heroi = await heroiModel.getWizardById(req.params.id);
+        const heroi = await heroiModel.getHeroiById(req.params.id);
         if (!heroi) {
             return res.status(404).json({ message: "Heroi não encontrado." });
         }

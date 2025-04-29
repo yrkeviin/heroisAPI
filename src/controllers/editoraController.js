@@ -1,4 +1,4 @@
-const houseModel = require("../models/editoraModel");
+const editoraModel = require("../models/editoraModel");
 
 const getAllEditoras = async (req, res) => {
     try {
