@@ -21,4 +21,38 @@ const getEditora = async (req, res) => {
     }
 };
 
-module.exports = { getAllEditoras, getEditora };
+const createEditora = async (req, res) => {
+    try {
+        const novaEditora = await editoraModel.createEditora(req.body.name);
+        res.status(201).json(novaEditora);
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao criar editora!" });
+    }
+};
+
+const updateEditora = async (req, res) => {
+    try {
+        const editoraAtualizada = await editoraModel.updateEditora(req.body.name);
+        if (!editoraAtualizada) {
+            return res.status(404).json({ message: "Editora não encontrada!" });
+        }
+        res.json(editoraAtualizada);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Erro ao atualizar editora!" });
+    }
+};
+
+const deleteEditora = async (req, res) => {
+    try {
+        const editoraDeletada = await editoraModel.deleteEditora(req.params.id);
+        if (!editoraDeletada) {
+            return res.status(404).json({ message: "Editora não encontrada!" });
+        }
+        res.json({ message: "Editora deletada com sucesso!" });
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao deletar editora!" });
+    }
+};
+
+module.exports = { getAllEditoras, getEditora, createEditora, updateEditora, deleteEditora };
